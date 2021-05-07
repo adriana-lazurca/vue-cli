@@ -1,15 +1,44 @@
 <script>
 export default {
   name: "MenuItem",
-  props: ["addToShoppingCart", "image", "inStock", "name", "quantity"]
+  props: ["addToShoppingCart", "image", "inStock", "name", "price", "quantity"],
+  data() {
+    return { onSale: false };
+  },
+  methods: {
+    goToUrl(url) {
+      window.location.href = url;
+    }
+  },
+  computed: {
+    generatedPrice() {
+      if (this.onSale) {
+        return (this.price * 0.9).toFixed(2);
+      } else {
+        return this.price;
+      }
+    }
+  },
+  beforeMount() {
+    const today = new Date().getDate();
+    if (today % 2 === 0) {
+      this.onSale = true;
+    }
+  }
 };
 </script>
 
 <template>
   <div class="menu-item">
-    <img class="menu-item__image" :src="image.source" :alt="image.alt" />
+    <img
+      class="menu-item__image"
+      :src="image.source"
+      :alt="image.alt"
+      @click="goToUrl(`item/${name}`)"
+    />
     <div>
       <h3>{{ name }}</h3>
+      <p>Prix : {{ generatedPrice }}</p>
       <p v-if="inStock">En stock</p>
       <p v-else>En rupture de stock</p>
       <div>
