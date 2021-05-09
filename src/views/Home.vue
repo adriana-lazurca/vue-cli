@@ -8,11 +8,6 @@
       est difficile de s'arrêter.
     </p>
 
-    <section>
-      <A />
-      <B />
-    </section>
-
     <section class="menu">
       <h2>Menu</h2>
 
@@ -53,10 +48,10 @@ export default {
       simpleMenu: [
         {
           name: "Croissant",
-          image: {
-            source: "/images/crossiant.jpg",
-            alt: "Un croissant"
-          },
+          // image: {
+          //   source: "/images/crossiant.jpg",
+          //   alt: "Un croissant"
+          // },
           inStock: true,
           quantity: 1,
           price: 2.99
@@ -97,3 +92,33 @@ export default {
   }
 };
 </script>
+
+<style lang="scss">
+.app {
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+}
+.description {
+  max-width: 960px;
+  font-size: 1.2rem;
+  margin: 0 auto;
+}
+.footer {
+  font-style: italic;
+  text-align: center;
+}
+.menu {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.shopping-cart {
+  position: absolute;
+  right: 30px;
+  top: 0;
+}
+</style>

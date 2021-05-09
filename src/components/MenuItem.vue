@@ -1,7 +1,23 @@
 <script>
 export default {
   name: "MenuItem",
-  props: ["addToShoppingCart", "image", "inStock", "name", "price", "quantity"],
+  props: {
+    addToShoppingCart: {
+      type: Function
+    },
+    image: {
+      type: Object,
+      default() {
+        return { source: "", alt: "" };
+      }
+    },
+    inStock: {
+      type: Boolean
+    },
+    name: String,
+    price: Number,
+    quantity: Number
+  },
   data() {
     return { onSale: false };
   },
@@ -52,4 +68,15 @@ export default {
   </div>
 </template>
 
-<style></style>
+<style>
+.menu-item {
+  display: flex;
+  width: 500px;
+  justify-content: space-between;
+  margin-bottom: 30px;
+}
+
+.menu-item__image {
+  max-width: 300px;
+}
+</style>
