@@ -13,7 +13,8 @@
 
       <MenuItem
         v-for="item in simpleMenu"
-        :addToShoppingCart="addToShoppingCart"
+        @add-items-to-cart="addToShoppingCart"
+        @change-quantity="changeQuantity"
         :name="item.name"
         :image="item.image"
         :price="item.price"
@@ -48,10 +49,10 @@ export default {
       simpleMenu: [
         {
           name: "Croissant",
-          // image: {
-          //   source: "/images/crossiant.jpg",
-          //   alt: "Un croissant"
-          // },
+          image: {
+            source: "/images/crossiant.jpg",
+            alt: "Un croissant"
+          },
           inStock: true,
           quantity: 1,
           price: 2.99
@@ -86,8 +87,21 @@ export default {
     }
   },
   methods: {
-    addToShoppingCart(amount) {
-      this.shoppingCart += amount;
+    addToShoppingCart(quantity) {
+      this.shoppingCart += quantity;
+    },
+
+    changeQuantity({ quantity, name }) {
+      /*
+      for (let i = 0; i < this.simpleMenu.length; i++) {
+        if (this.simpleMenu[i].name == name) {
+          this.simpleMenu[i].quantity = quantity;
+        }
+      }
+      */
+
+      let menuItem = this.simpleMenu.find(item => item.name == name);
+      menuItem.quantity = quantity;
     }
   }
 };

@@ -2,9 +2,9 @@
 export default {
   name: "MenuItem",
   props: {
-    addToShoppingCart: {
-      type: Function
-    },
+    // addToShoppingCart: {
+    //   type: Function
+    // },
     image: {
       type: Object,
       default() {
@@ -15,15 +15,27 @@ export default {
       type: Boolean
     },
     name: String,
-    price: Number,
+    price: {
+      type: Number,
+      required: true
+    },
     quantity: Number
   },
   data() {
-    return { onSale: false };
+    return {
+      onSale: false
+    };
   },
   methods: {
     goToUrl(url) {
       window.location.href = url;
+    },
+    updateShoppingCart(quantity) {
+      this.$emit("add-items-to-cart", quantity);
+    },
+    changeQuantity(event) {
+      let newQuantity = parseInt(event.target.value);
+      this.$emit("change-quantity", { quantity: newQuantity, name: this.name });
     }
   },
   computed: {
@@ -59,8 +71,13 @@ export default {
       <p v-else>En rupture de stock</p>
       <div>
         <label for="add-item-quantity">Quantité : {{ quantity }}</label>
-        <input v-model.number="quantity" id="add-item-quantity" type="number" />
-        <button @click="addToShoppingCart(quantity)">
+        <input
+          id="add-item-quantity"
+          type="number"
+          :value="quantity"
+          @change="changeQuantity($event)"
+        />
+        <button @click="updateShoppingCart(quantity)">
           Ajouter au panier
         </button>
       </div>
